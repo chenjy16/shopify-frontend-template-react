@@ -5,7 +5,7 @@ import {
   Link,
   Text,
   VerticalStack,
-} from "@shopify/polaris'";
+} from "@shopify/polaris";
 import { TitleBar } from '@shopify/app-bridge-react';
 import { useTranslation } from 'react-i18next';
 
