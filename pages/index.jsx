@@ -74,6 +74,8 @@ const styles = {
     gridTemplateColumns: "1fr repeat(6, 1fr)", // Ensuring the first column is wider, others equally spaced
     gap: "16px", // Space between columns
     marginBottom: "16px", // Space between sections
+    width: "100%", // Ensure the container takes the full width
+    boxSizing: "border-box", // Prevent padding from affecting the width
   },
   categoryColumn: {
     backgroundColor: "#E9F4FF", // Light blue background for category columns
@@ -84,6 +86,8 @@ const styles = {
     display: "flex", // Flexbox to make sure contents are aligned
     alignItems: "center", // Center items vertically within the card
     justifyContent: "center", // Center content horizontally within the category card
+    width: "100%", // Ensure it takes the full width
+    boxSizing: "border-box", // Prevent padding from affecting the width
   },
   linkColumn: {
     backgroundColor: "#FFFFFF", // White background for link columns for contrast
@@ -118,4 +122,3 @@ const styles = {
     fontWeight: "600", // Bold font for category titles
   },
 };
-
