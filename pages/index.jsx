@@ -80,8 +80,9 @@ const styles = {
     padding: "16px",
     borderRadius: "8px",
     textAlign: "left", // Left-aligned text
-    border: "2px solid #0066FF", // Blue border to match the color theme
     minHeight: "120px", // Consistent minimum height for each card
+    display: "flex", // Flexbox to make sure contents are aligned
+    alignItems: "center", // Center items vertically within the card
   },
   linkColumn: {
     backgroundColor: "#FFFFFF", // White background for link columns for contrast
@@ -90,6 +91,10 @@ const styles = {
     textAlign: "left", // Left-aligned text for links
     border: "2px solid #0066FF", // Blue border for consistency
     minHeight: "120px", // Ensuring all cards have the same height
+    display: "flex", // Flexbox to ensure the content stays in a row
+    flexDirection: "column", // Allow content to flow from top to bottom
+    justifyContent: "center", // Vertically center the content
+    wordBreak: "break-word", // Prevent long words like 'made-in-china' from overflowing or breaking
   },
   link: {
     color: "#0066FF", // Blue link color
@@ -97,6 +102,9 @@ const styles = {
     fontSize: "14px",
     fontWeight: "500",
     display: "block", // Block display to make the link fill the available space
+    whiteSpace: "nowrap", // Prevent text from wrapping onto the next line
+    overflow: "hidden", // Hide overflow if necessary
+    textOverflow: "ellipsis", // Display ellipsis for overflowing text
     transition: "color 0.3s ease", // Smooth transition for color changes
   },
   text: {
