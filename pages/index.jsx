@@ -46,36 +46,12 @@ export default function HomePage() {
             <div style={styles.categoryColumn}>
               <Card sectioned>
                 <Text as="p" variant="bodyMd" style={styles.text}>
-                  Wholesale supplier
+                  Supplier
                 </Text>
               </Card>
             </div>
             {/* Link Columns */}
             {["globalsources", "thomasnet", "made-in-china", "europages", "ec21", "tradekey"].map((linkText, index) => (
-              <div key={index} style={styles.linkColumn}>
-                <Card sectioned>
-                  <Link url={`https://${linkText}.com`} external style={styles.link}>
-                    {linkText}
-                  </Link>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </Layout>
-
-        {/* Third Row */}
-        <Layout>
-          <div style={styles.gridContainer}>
-            {/* Category Column */}
-            <div style={styles.categoryColumn}>
-              <Card sectioned>
-                <Text as="p" variant="bodyMd" style={styles.text}>
-                  Categories
-                </Text>
-              </Card>
-            </div>
-            {/* Link Columns */}
-            {["hao123", "hao123", "hao123", "hao123"].map((linkText, index) => (
               <div key={index} style={styles.linkColumn}>
                 <Card sectioned>
                   <Link url={`https://${linkText}.com`} external style={styles.link}>
