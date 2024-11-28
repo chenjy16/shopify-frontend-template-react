@@ -94,14 +94,12 @@ const styles = {
     padding: "16px",
     borderRadius: "8px",
     textAlign: "left", // Left-aligned text for links
-    border: "2px solid #0066FF", // Blue border for consistency
     minHeight: "120px", // Ensuring all cards have the same height
     display: "flex", // Flexbox to ensure the content stays in a row
-    flexDirection: "column", // Allow content to flow from top to bottom
-    justifyContent: "center", // Vertically center the content
-    wordBreak: "break-word", // Prevent long words like 'made-in-china' from overflowing or breaking
-    width: "100%", // Ensure the link column takes up the full available width
-    boxSizing: "border-box", // Prevent padding from affecting the element width
+    alignItems: "center", // Center items vertically within the card
+    justifyContent: "center", // Center content horizontally within the category card
+    width: "100%", // Ensure it takes the full width
+    boxSizing: "border-box", // Prevent padding from affecting the width
   },
   link: {
     color: "#0066FF", // Blue link color
