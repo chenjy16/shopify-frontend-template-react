@@ -83,6 +83,7 @@ const styles = {
     minHeight: "120px", // Consistent minimum height for each card
     display: "flex", // Flexbox to make sure contents are aligned
     alignItems: "center", // Center items vertically within the card
+    justifyContent: "center", // Center content horizontally within the category card
   },
   linkColumn: {
     backgroundColor: "#FFFFFF", // White background for link columns for contrast
@@ -95,6 +96,8 @@ const styles = {
     flexDirection: "column", // Allow content to flow from top to bottom
     justifyContent: "center", // Vertically center the content
     wordBreak: "break-word", // Prevent long words like 'made-in-china' from overflowing or breaking
+    width: "100%", // Ensure the link column takes up the full available width
+    boxSizing: "border-box", // Prevent padding from affecting the element width
   },
   link: {
     color: "#0066FF", // Blue link color
@@ -105,7 +108,9 @@ const styles = {
     whiteSpace: "nowrap", // Prevent text from wrapping onto the next line
     overflow: "hidden", // Hide overflow if necessary
     textOverflow: "ellipsis", // Display ellipsis for overflowing text
-    transition: "color 0.3s ease", // Smooth transition for color changes
+    width: "100%", // Ensure the link takes the full width of the card
+    lineHeight: "1.5", // Adjust line height to avoid excessive height of blocks
+    boxSizing: "border-box", // Ensure padding does not affect the element width
   },
   text: {
     color: "#333", // Dark text for visibility
@@ -113,3 +118,4 @@ const styles = {
     fontWeight: "600", // Bold font for category titles
   },
 };
+
