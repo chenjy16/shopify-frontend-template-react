@@ -8,6 +8,7 @@ import {
 } from "@shopify/polaris";
 import { TitleBar } from '@shopify/app-bridge-react';
 import { useTranslation } from 'react-i18next';
+import { ProductsCard } from "../components";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export default function HomePage() {
             </div>
             {/* Link Columns */}
             {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText, index) => (
-              <div key={index} style={styles.linkColumn}>
+              <div key={index} style={styles.categoryColumn}>
                 <Card sectioned>
                   <Link url={`https://${linkText}.com`} external style={styles.link}>
                     {linkText}
@@ -52,7 +53,7 @@ export default function HomePage() {
             </div>
             {/* Link Columns */}
             {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText, index) => (
-              <div key={index} style={styles.linkColumn}>
+              <div key={index} style={styles.categoryColumn}>
                 <Card sectioned>
                   <Link url={`https://${linkText}.com`} external style={styles.link}>
                     {linkText}
@@ -62,6 +63,18 @@ export default function HomePage() {
             ))}
           </div>
         </Layout>
+        <Layout>
+          <div style={styles.gridContainer}>
+            {/* Category Column */}
+            <div style={styles.categoryColumn}>
+              <Card sectioned>
+                <ProductsCard />
+              </Card>
+            </div>
+          </div>
+        </Layout>
+
+
       </VerticalStack>
     </Page>
   );
@@ -76,6 +89,7 @@ const styles = {
     marginBottom: "16px", // Space between sections
     width: "100%", // Ensure the container takes full width
     boxSizing: "border-box", // Prevent padding from affecting width
+    textAlign: "left", // Ensure the text aligns to the left
   },
   categoryColumn: {
     backgroundColor: "#E9F4FF", // Light blue background for category columns
@@ -89,19 +103,6 @@ const styles = {
     width: "100%", // Ensures it takes the full available width
     boxSizing: "border-box", // Prevent padding from affecting width
     whiteSpace: "nowrap", // Prevents wrapping of text
-  },
-  linkColumn: {
-    backgroundColor: "#FFFFFF", // White background for link columns
-    padding: "16px",
-    borderRadius: "8px",
-    textAlign: "left", // Left-aligned text for links
-    minHeight: "120px", // Consistent height for each link card
-    display: "flex", // Flexbox for content arrangement
-    alignItems: "center", // Center items vertically within the card
-    justifyContent: "center", // Center content horizontally within the link card
-    width: "100%", // Ensures it takes the full available width
-    boxSizing: "border-box", // Prevent padding from affecting width
-    wordBreak: "break-word", // Ensure long words break properly without overflow
   },
   link: {
     color: "#0066FF", // Blue link color
