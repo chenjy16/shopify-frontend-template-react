@@ -71,35 +71,37 @@ export default function HomePage() {
 const styles = {
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr repeat(6, 1fr)", // Ensuring the first column is wider, others equally spaced
+    gridTemplateColumns: "1fr repeat(6, 1fr)", // 1st column wider, other columns equally spaced
     gap: "16px", // Space between columns
     marginBottom: "16px", // Space between sections
-    width: "100%", // Ensure the container takes the full width
-    boxSizing: "border-box", // Prevent padding from affecting the width
+    width: "100%", // Ensure the container takes full width
+    boxSizing: "border-box", // Prevent padding from affecting width
   },
   categoryColumn: {
     backgroundColor: "#E9F4FF", // Light blue background for category columns
     padding: "16px",
     borderRadius: "8px",
     textAlign: "left", // Left-aligned text
-    minHeight: "120px", // Consistent minimum height for each card
-    display: "flex", // Flexbox to make sure contents are aligned
-    alignItems: "center", // Center items vertically within the card
-    justifyContent: "center", // Center content horizontally within the category card
-    width: "100%", // Ensure it takes the full width
-    boxSizing: "border-box", // Prevent padding from affecting the width
+    minHeight: "120px", // Ensuring all cards have a consistent minimum height
+    display: "flex", // Flexbox to center content
+    alignItems: "center", // Vertically align content
+    justifyContent: "center", // Horizontally center content
+    width: "100%", // Ensures it takes the full available width
+    boxSizing: "border-box", // Prevent padding from affecting width
+    whiteSpace: "nowrap", // Prevents wrapping of text
   },
   linkColumn: {
-    backgroundColor: "#FFFFFF", // White background for link columns for contrast
+    backgroundColor: "#FFFFFF", // White background for link columns
     padding: "16px",
     borderRadius: "8px",
     textAlign: "left", // Left-aligned text for links
-    minHeight: "120px", // Ensuring all cards have the same height
-    display: "flex", // Flexbox to ensure the content stays in a row
+    minHeight: "120px", // Consistent height for each link card
+    display: "flex", // Flexbox for content arrangement
     alignItems: "center", // Center items vertically within the card
-    justifyContent: "center", // Center content horizontally within the category card
-    width: "100%", // Ensure it takes the full width
-    boxSizing: "border-box", // Prevent padding from affecting the width
+    justifyContent: "center", // Center content horizontally within the link card
+    width: "100%", // Ensures it takes the full available width
+    boxSizing: "border-box", // Prevent padding from affecting width
+    wordBreak: "break-word", // Ensure long words break properly without overflow
   },
   link: {
     color: "#0066FF", // Blue link color
@@ -108,20 +110,21 @@ const styles = {
     fontWeight: "500",
     display: "block", // Block display to make the link fill the available space
     whiteSpace: "nowrap", // Prevent text from wrapping onto the next line
-    overflow: "hidden", // Hide overflow if necessary
-    textOverflow: "ellipsis", // Display ellipsis for overflowing text
-    width: "100%", // Ensure the link takes the full width of the card
-    lineHeight: "1.5", // Adjust line height to avoid excessive height of blocks
-    boxSizing: "border-box", // Ensure padding does not affect the element width
+    overflow: "hidden", // Hide overflow text
+    textOverflow: "ellipsis", // Show ellipsis for overflowing text
+    width: "100%", // Ensures the link takes the full width of the card
+    lineHeight: "1.5", // Adjust line height for consistent text height
+    boxSizing: "border-box", // Prevent padding from affecting the width
   },
   text: {
     color: "#333", // Dark text for visibility
     fontSize: "16px",
     fontWeight: "600", // Bold font for category titles
+    textAlign: "left", // Left align category titles
     whiteSpace: "nowrap", // Prevent text from wrapping onto the next line
     overflow: "hidden", // Hide overflow text
-    textOverflow: "ellipsis", // Show ellipsis if text overflows
-    wordWrap: "normal", // Prevent words from breaking or wrapping
+    textOverflow: "ellipsis", // Display ellipsis for overflowing text
+    wordWrap: "normal", // Prevent breaking long words
     overflowWrap: "normal", // Ensure words are not broken at the hyphen
   },
 };
