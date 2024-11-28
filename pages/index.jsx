@@ -78,40 +78,56 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-              <Text as="p" variant="bodyMd" alignment="center">
-                  Categories
+                <Text as="p" variant="bodyMd" alignment="center">
+                  Wholesale supplier
                 </Text>
               </Card>
             </div>
             {/* 其他列：展示链接 */}
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.globalsources.com/" external>
+                  globalsources
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.thomasnet.com/" external>
+                  thomasnet
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://cn.made-in-china.com/" external>
+                  made-in-china
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.europages.co.uk/" external>
+                  europages
                 </Link>
               </Card>
             </div>
+            <div style={styles.linkColumn}>
+              <Card sectioned>
+                <Link url="https://www.ec21.com/" external>
+                  ec21
+                </Link>
+              </Card>
+            </div>
+
+            <div style={styles.linkColumn}>
+              <Card sectioned>
+                <Link url="https://www.tradekey.com/" external>
+                  tradekey
+                </Link>
+              </Card>
+            </div>
+
           </div>
         </Layout>
 
@@ -121,7 +137,7 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="center">
+              <Text as="p" variant="bodyMd" alignment="center">
                   Categories
                 </Text>
               </Card>
