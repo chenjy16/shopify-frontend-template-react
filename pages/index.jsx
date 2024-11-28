@@ -21,8 +21,9 @@ export default function HomePage() {
           <Layout.Section>
             <Card sectioned>
               <Text as="p" variant="bodyMd" alignment="center">
-                <Trans
-                  components={{PolarisLink: (<Link url="https://polaris.shopify.com/" external />)}}
+                <Link url="https://www.hao123.com"  external>
+                  hao123
+                </Link>
                 />
               </Text>
             </Card>
