@@ -21,7 +21,7 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="center">
+                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
                   Dropshipping
                 </Text>
               </Card>
@@ -29,42 +29,42 @@ export default function HomePage() {
             {/* 其他列：展示链接 */}
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://cjdropshipping.com/" external>
+                <Link url="https://cjdropshipping.com/" external style={styles.link}>
                   cjdropshipping
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.aliexpress.us/" external>
+                <Link url="https://www.aliexpress.us/" external style={styles.link}>
                   aliexpress
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.gigacloudtech.cn/" external>
+                <Link url="https://www.gigacloudtech.cn/" external style={styles.link}>
                   gigacloudtech
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.dsers.com/" external>
+                <Link url="https://www.dsers.com/" external style={styles.link}>
                   dsers
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://zendrop.com/" external>
+                <Link url="https://zendrop.com/" external style={styles.link}>
                   zendrop
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.spocket.co/" external>
+                <Link url="https://www.spocket.co/" external style={styles.link}>
                   spocket
                 </Link>
               </Card>
@@ -78,7 +78,7 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="center">
+                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
                   Wholesale supplier
                 </Text>
               </Card>
@@ -86,35 +86,35 @@ export default function HomePage() {
             {/* 其他列：展示链接 */}
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.globalsources.com/" external>
+                <Link url="https://www.globalsources.com/" external style={styles.link}>
                   globalsources
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.thomasnet.com/" external>
+                <Link url="https://www.thomasnet.com/" external style={styles.link}>
                   thomasnet
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://cn.made-in-china.com/" external>
-                  made-in-china
+                <Link url="https://cn.made-in-china.com/" external style={styles.link}>
+                  madeInChina
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.europages.co.uk/" external>
+                <Link url="https://www.europages.co.uk/" external style={styles.link}>
                   europages
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.ec21.com/" external>
+                <Link url="https://www.ec21.com/" external style={styles.link}>
                   ec21
                 </Link>
               </Card>
@@ -122,7 +122,7 @@ export default function HomePage() {
 
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.tradekey.com/" external>
+                <Link url="https://www.tradekey.com/" external style={styles.link}>
                   tradekey
                 </Link>
               </Card>
@@ -137,7 +137,7 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-              <Text as="p" variant="bodyMd" alignment="center">
+                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
                   Categories
                 </Text>
               </Card>
@@ -145,28 +145,28 @@ export default function HomePage() {
             {/* 其他列：展示链接 */}
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
+                <Link url="https://www.hao123.com" external style={styles.link}>
                   hao123
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
+                <Link url="https://www.hao123.com" external style={styles.link}>
                   hao123
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
+                <Link url="https://www.hao123.com" external style={styles.link}>
                   hao123
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
+                <Link url="https://www.hao123.com" external style={styles.link}>
                   hao123
                 </Link>
               </Card>
@@ -182,18 +182,32 @@ export default function HomePage() {
 const styles = {
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr repeat(6, 1fr)", // 第一列占1份，后面四列均分
+    gridTemplateColumns: "1fr repeat(6, 1fr)", // 第一列占1份，后面六列均分
     gap: "16px", // 每列之间的间隙
   },
   categoryColumn: {
-    backgroundColor: "#f4f4f4", // 分类列的背景色
+    backgroundColor: "#f2faff", // 分类列背景色
     padding: "16px", // 内边距
     borderRadius: "8px", // 边框圆角
-    textAlign: "center",
+    textAlign: "left", // 左对齐
+    border: "1px solid #b0c4de", // 蓝色系边框
   },
   linkColumn: {
     padding: "16px", // 内边距
     borderRadius: "8px", // 边框圆角
-    textAlign: "center",
+    textAlign: "left", // 左对齐
+    border: "1px solid #b0c4de", // 蓝色系边框
+  },
+  link: {
+    color: "#0066ff", // 蓝色链接
+    textDecoration: "none", // 去掉下划线
+    fontSize: "14px",
+    fontWeight: "500",
+    display: "block", // 让链接块显示
+  },
+  text: {
+    color: "#333", // 文字颜色
+    fontSize: "16px",
+    fontWeight: "600",
   },
 };
