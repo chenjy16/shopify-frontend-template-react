@@ -22,36 +22,50 @@ export default function HomePage() {
             <div style={styles.categoryColumn}>
               <Card sectioned>
                 <Text as="p" variant="bodyMd" alignment="center">
-                  Categories
+                  Dropshipping
                 </Text>
               </Card>
             </div>
             {/* 其他列：展示链接 */}
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://cjdropshipping.com/" external>
+                  cjdropshipping
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.aliexpress.us/" external>
+                  aliexpress
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.gigacloudtech.cn/" external>
+                  gigacloudtech
                 </Link>
               </Card>
             </div>
             <div style={styles.linkColumn}>
               <Card sectioned>
-                <Link url="https://www.hao123.com" external>
-                  hao123
+                <Link url="https://www.dsers.com/" external>
+                  dsers
+                </Link>
+              </Card>
+            </div>
+            <div style={styles.linkColumn}>
+              <Card sectioned>
+                <Link url="https://zendrop.com/" external>
+                  zendrop
+                </Link>
+              </Card>
+            </div>
+            <div style={styles.linkColumn}>
+              <Card sectioned>
+                <Link url="https://www.spocket.co/" external>
+                  spocket
                 </Link>
               </Card>
             </div>
@@ -64,7 +78,7 @@ export default function HomePage() {
             {/* 第一列：显示分类信息 */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="center">
+              <Text as="p" variant="bodyMd" alignment="center">
                   Categories
                 </Text>
               </Card>
@@ -152,7 +166,7 @@ export default function HomePage() {
 const styles = {
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr repeat(4, 1fr)", // 第一列占1份，后面四列均分
+    gridTemplateColumns: "1fr repeat(6, 1fr)", // 第一列占1份，后面四列均分
     gap: "16px", // 每列之间的间隙
   },
   categoryColumn: {
