@@ -5,9 +5,9 @@ import {
   Link,
   Text,
   VerticalStack,
-} from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
-import { useTranslation } from "react-i18next";
+} from "@shopify/polaris'";
+import { TitleBar } from '@shopify/app-bridge-react';
+import { useTranslation } from 'react-i18next';
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ export default function HomePage() {
               </Card>
             </div>
             {/* Link Columns */}
-            {["globalsources", "thomasnet", "madeInChina", "europages", "ec21", "tradekey"].map((linkText, index) => (
+            {["globalsources", "thomasnet", "made-in-china", "europages", "ec21", "tradekey"].map((linkText, index) => (
               <div key={index} style={styles.linkColumn}>
                 <Card sectioned>
                   <Link url={`https://${linkText}.com`} external style={styles.link}>
@@ -91,41 +91,41 @@ export default function HomePage() {
   );
 }
 
-// Updated CSS styles for best practices and improved design consistency
+// CSS styles with unified size, clear borders, and left alignment
 const styles = {
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr repeat(6, 1fr)", // Make the first column wider and the other six columns equal
-    gap: "16px", // Add space between columns
-    marginBottom: "16px", // Add space between sections
+    gridTemplateColumns: "1fr repeat(6, 1fr)", // Ensuring the first column is wider, others equally spaced
+    gap: "16px", // Space between columns
+    marginBottom: "16px", // Space between sections
   },
   categoryColumn: {
     backgroundColor: "#E9F4FF", // Light blue background for category columns
     padding: "16px",
     borderRadius: "8px",
-    textAlign: "left", // Left align text
-    border: "1px solid #CCE0FF", // Light blue border for emphasis
+    textAlign: "left", // Left-aligned text
+    border: "2px solid #0066FF", // Blue border to match the color theme
+    minHeight: "120px", // Consistent minimum height for each card
   },
   linkColumn: {
+    backgroundColor: "#FFFFFF", // White background for link columns for contrast
     padding: "16px",
     borderRadius: "8px",
-    textAlign: "left", // Left align text for link columns
-    border: "1px solid #CCE0FF", // Light blue border for consistency
+    textAlign: "left", // Left-aligned text for links
+    border: "2px solid #0066FF", // Blue border for consistency
+    minHeight: "120px", // Ensuring all cards have the same height
   },
   link: {
-    color: "#0066FF", // Bright blue links
-    textDecoration: "none", // Remove underlines
+    color: "#0066FF", // Blue link color
+    textDecoration: "none", // Remove underline
     fontSize: "14px",
     fontWeight: "500",
-    display: "block", // Make links block level for easier interaction
-    transition: "color 0.3s ease", // Smooth color transition
-  },
-  linkHover: {
-    color: "#0057D9", // Darker blue when hovering over link
+    display: "block", // Block display to make the link fill the available space
+    transition: "color 0.3s ease", // Smooth transition for color changes
   },
   text: {
-    color: "#333", // Dark text for clarity
+    color: "#333", // Dark text for visibility
     fontSize: "16px",
-    fontWeight: "600", // Bold text for category titles
+    fontWeight: "600", // Bold font for category titles
   },
 };
