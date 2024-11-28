@@ -15,162 +15,75 @@ export default function HomePage() {
     <Page narrowWidth>
       <TitleBar title={t("HomePage.title")} />
       <VerticalStack gap="4">
-        {/* 第一行 */}
+        {/* First Row */}
         <Layout>
           <div style={styles.gridContainer}>
-            {/* 第一列：显示分类信息 */}
+            {/* Category Column */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
+                <Text as="p" variant="bodyMd" style={styles.text}>
                   Dropshipping
                 </Text>
               </Card>
             </div>
-            {/* 其他列：展示链接 */}
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://cjdropshipping.com/" external style={styles.link}>
-                  cjdropshipping
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.aliexpress.us/" external style={styles.link}>
-                  aliexpress
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.gigacloudtech.cn/" external style={styles.link}>
-                  gigacloudtech
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.dsers.com/" external style={styles.link}>
-                  dsers
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://zendrop.com/" external style={styles.link}>
-                  zendrop
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.spocket.co/" external style={styles.link}>
-                  spocket
-                </Link>
-              </Card>
-            </div>
+            {/* Link Columns */}
+            {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText, index) => (
+              <div key={index} style={styles.linkColumn}>
+                <Card sectioned>
+                  <Link url={`https://${linkText}.com`} external style={styles.link}>
+                    {linkText}
+                  </Link>
+                </Card>
+              </div>
+            ))}
           </div>
         </Layout>
 
-        {/* 第二行 */}
+        {/* Second Row */}
         <Layout>
           <div style={styles.gridContainer}>
-            {/* 第一列：显示分类信息 */}
+            {/* Category Column */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
+                <Text as="p" variant="bodyMd" style={styles.text}>
                   Wholesale supplier
                 </Text>
               </Card>
             </div>
-            {/* 其他列：展示链接 */}
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.globalsources.com/" external style={styles.link}>
-                  globalsources
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.thomasnet.com/" external style={styles.link}>
-                  thomasnet
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://cn.made-in-china.com/" external style={styles.link}>
-                  madeInChina
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.europages.co.uk/" external style={styles.link}>
-                  europages
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.ec21.com/" external style={styles.link}>
-                  ec21
-                </Link>
-              </Card>
-            </div>
-
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.tradekey.com/" external style={styles.link}>
-                  tradekey
-                </Link>
-              </Card>
-            </div>
-
+            {/* Link Columns */}
+            {["globalsources", "thomasnet", "madeInChina", "europages", "ec21", "tradekey"].map((linkText, index) => (
+              <div key={index} style={styles.linkColumn}>
+                <Card sectioned>
+                  <Link url={`https://${linkText}.com`} external style={styles.link}>
+                    {linkText}
+                  </Link>
+                </Card>
+              </div>
+            ))}
           </div>
         </Layout>
 
-        {/* 第三行 */}
+        {/* Third Row */}
         <Layout>
           <div style={styles.gridContainer}>
-            {/* 第一列：显示分类信息 */}
+            {/* Category Column */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <Text as="p" variant="bodyMd" alignment="start" style={styles.text}>
+                <Text as="p" variant="bodyMd" style={styles.text}>
                   Categories
                 </Text>
               </Card>
             </div>
-            {/* 其他列：展示链接 */}
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.hao123.com" external style={styles.link}>
-                  hao123
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.hao123.com" external style={styles.link}>
-                  hao123
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.hao123.com" external style={styles.link}>
-                  hao123
-                </Link>
-              </Card>
-            </div>
-            <div style={styles.linkColumn}>
-              <Card sectioned>
-                <Link url="https://www.hao123.com" external style={styles.link}>
-                  hao123
-                </Link>
-              </Card>
-            </div>
+            {/* Link Columns */}
+            {["hao123", "hao123", "hao123", "hao123"].map((linkText, index) => (
+              <div key={index} style={styles.linkColumn}>
+                <Card sectioned>
+                  <Link url={`https://${linkText}.com`} external style={styles.link}>
+                    {linkText}
+                  </Link>
+                </Card>
+              </div>
+            ))}
           </div>
         </Layout>
       </VerticalStack>
@@ -178,36 +91,41 @@ export default function HomePage() {
   );
 }
 
-// CSS样式：使用Grid布局
+// Updated CSS styles for best practices and improved design consistency
 const styles = {
   gridContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr repeat(6, 1fr)", // 第一列占1份，后面六列均分
-    gap: "16px", // 每列之间的间隙
+    gridTemplateColumns: "1fr repeat(6, 1fr)", // Make the first column wider and the other six columns equal
+    gap: "16px", // Add space between columns
+    marginBottom: "16px", // Add space between sections
   },
   categoryColumn: {
-    backgroundColor: "#f2faff", // 分类列背景色
-    padding: "16px", // 内边距
-    borderRadius: "8px", // 边框圆角
-    textAlign: "left", // 左对齐
-    border: "1px solid #b0c4de", // 蓝色系边框
+    backgroundColor: "#E9F4FF", // Light blue background for category columns
+    padding: "16px",
+    borderRadius: "8px",
+    textAlign: "left", // Left align text
+    border: "1px solid #CCE0FF", // Light blue border for emphasis
   },
   linkColumn: {
-    padding: "16px", // 内边距
-    borderRadius: "8px", // 边框圆角
-    textAlign: "left", // 左对齐
-    border: "1px solid #b0c4de", // 蓝色系边框
+    padding: "16px",
+    borderRadius: "8px",
+    textAlign: "left", // Left align text for link columns
+    border: "1px solid #CCE0FF", // Light blue border for consistency
   },
   link: {
-    color: "#0066ff", // 蓝色链接
-    textDecoration: "none", // 去掉下划线
+    color: "#0066FF", // Bright blue links
+    textDecoration: "none", // Remove underlines
     fontSize: "14px",
     fontWeight: "500",
-    display: "block", // 让链接块显示
+    display: "block", // Make links block level for easier interaction
+    transition: "color 0.3s ease", // Smooth color transition
+  },
+  linkHover: {
+    color: "#0057D9", // Darker blue when hovering over link
   },
   text: {
-    color: "#333", // 文字颜色
+    color: "#333", // Dark text for clarity
     fontSize: "16px",
-    fontWeight: "600",
+    fontWeight: "600", // Bold text for category titles
   },
 };
