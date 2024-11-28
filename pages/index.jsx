@@ -51,7 +51,7 @@ export default function HomePage() {
               </Card>
             </div>
             {/* Link Columns */}
-            {["globalsources", "thomasnet", "made-in-china", "europages", "ec21", "tradekey"].map((linkText, index) => (
+            {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText, index) => (
               <div key={index} style={styles.linkColumn}>
                 <Card sectioned>
                   <Link url={`https://${linkText}.com`} external style={styles.link}>
