@@ -1,5 +1,5 @@
 import {
-  Page,
+  Page,Layout,Card,
   Link,
   Text, VerticalStack,
 } from "@shopify/polaris";
