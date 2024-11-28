@@ -118,5 +118,10 @@ const styles = {
     color: "#333", // Dark text for visibility
     fontSize: "16px",
     fontWeight: "600", // Bold font for category titles
+    whiteSpace: "nowrap", // Prevent text from wrapping onto the next line
+    overflow: "hidden", // Hide overflow text
+    textOverflow: "ellipsis", // Show ellipsis if text overflows
+    wordWrap: "normal", // Prevent words from breaking or wrapping
+    overflowWrap: "normal", // Ensure words are not broken at the hyphen
   },
 };
