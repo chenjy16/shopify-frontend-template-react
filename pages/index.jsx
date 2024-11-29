@@ -8,13 +8,14 @@ import {
 } from "@shopify/polaris";
 import { TitleBar } from '@shopify/app-bridge-react';
 import { useTranslation } from 'react-i18next';
-import { ProductsCard } from "../components";
+import {ProductsCard,OrdersCard} from "../components";
+
 
 export default function HomePage() {
   const { t } = useTranslation();
   return (
     <Page narrowWidth>
-      <TitleBar title={t("HomePage.title")} />
+      <TitleBar title={t("HomePage.title")}/>
       <VerticalStack gap="4">
         {/* First Row */}
         <Layout>
@@ -68,13 +69,22 @@ export default function HomePage() {
             {/* Category Column */}
             <div style={styles.categoryColumn}>
               <Card sectioned>
-                <ProductsCard />
+                <ProductsCard/>
               </Card>
             </div>
           </div>
         </Layout>
 
-
+        <Layout>
+          <div style={styles.gridContainer}>
+            {/* Category Column */}
+            <div style={styles.categoryColumn}>
+              <Card sectioned>
+                <OrdersCard/>
+              </Card>
+            </div>
+          </div>
+        </Layout>
       </VerticalStack>
     </Page>
   );
