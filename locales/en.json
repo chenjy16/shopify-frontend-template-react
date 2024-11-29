@@ -34,5 +34,13 @@
     },
     "title": "Product Counter",
     "totalProductsHeading": "TOTAL PRODUCTS"
+  },
+  "OrdersCard": {
+    "title": "订单管理",
+    "populateOrdersButton": "创建 {count} 个订单",
+    "totalOrdersHeading": "总订单数",
+    "description": "点击下面的按钮来创建订单。",
+    "ordersCreatedToast": "{count} 个订单已成功创建！",
+    "errorCreatingOrdersToast": "创建订单时出错，请稍后再试。"
   }
 }

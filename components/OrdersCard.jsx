@@ -7,32 +7,70 @@ import { useQuery } from "react-query";
 export function OrdersCard() {
   const shopify = useAppBridge();
   const { t } = useTranslation();
-  const productsCount = 5;
+  const [isPopulating, setIsPopulating] = useState(false);
+  const ordersCount = 5;
 
+  // 获取当前订单数量
+  const {
+    data,
+    refetch: refetchOrderCount,
+    isLoading: isLoadingCount,
+  } = useQuery({
+    queryKey: ["orderCount"],
+    queryFn: async () => {
+      const response = 0;
+      return await response.json();
+    },
+    refetchOnWindowFocus: false,
+  });
 
+  // 设置加载状态
   const setPopulating = (flag) => {
     shopify.loading(flag);
     setIsPopulating(flag);
   };
 
+  // 创建订单的逻辑
   const handlePopulate = async () => {
+    setPopulating(true);
     const response = await fetch("/api/orders", { method: "POST" });
+
     if (response.ok) {
+      await refetchOrderCount();
+
       shopify.toast.show(
-        t("ProductsCard.productsCreatedToast", { count: productsCount })
+        t("OrdersCard.ordersCreatedToast", { count: ordersCount })
       );
     } else {
-      shopify.toast.show(t("ProductsCard.errorCreatingProductsToast"), {
+      shopify.toast.show(t("OrdersCard.errorCreatingOrdersToast"), {
         isError: true,
       });
     }
+
+    setPopulating(false);
   };
 
   return (
     <Card
-      title={t("ProductsCard.title")}
+      title={t("OrdersCard.title")}
       sectioned
-      onAction: handlePopulate>
+      primaryFooterAction={{
+        content: t("OrdersCard.populateOrdersButton", {
+          count: ordersCount,
+        }),
+        onAction: handlePopulate,
+        loading: isPopulating,
+      }}
+    >
+      <TextContainer spacing="loose">
+        <p>{t("OrdersCard.description")}</p>
+        <Text as="h4" variant="headingMd">
+          {t("OrdersCard.totalOrdersHeading")}
+          <Text variant="bodyMd" as="p" fontWeight="semibold">
+            {isLoadingCount ? "-" : data?.count}
+          </Text>
+        </Text>
+      </TextContainer>
     </Card>
   );
 }
