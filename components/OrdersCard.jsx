@@ -18,7 +18,7 @@ export function OrdersCard() {
   } = useQuery({
     queryKey: ["orderCount"],
     queryFn: async () => {
-      const response = 0;
+      const response = await fetch("/api/orders/count");
       return await response.json();
     },
     refetchOnWindowFocus: false,
