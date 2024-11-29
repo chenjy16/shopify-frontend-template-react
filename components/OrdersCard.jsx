@@ -7,21 +7,8 @@ import { useQuery } from "react-query";
 export function OrdersCard() {
   const shopify = useAppBridge();
   const { t } = useTranslation();
-  const [isPopulating, setIsPopulating] = useState(false);
   const productsCount = 5;
 
-  const {
-    data,
-    refetch: refetchProductCount,
-    isLoading: isLoadingCount,
-  } = useQuery({
-    queryKey: ["productCount"],
-    queryFn: async () => {
-      const response = await fetch("/api/products/count");
-      return await response.json();
-    },
-    refetchOnWindowFocus: false,
-  });
 
   const setPopulating = (flag) => {
     shopify.loading(flag);
@@ -29,12 +16,8 @@ export function OrdersCard() {
   };
 
   const handlePopulate = async () => {
-    setPopulating(true);
     const response = await fetch("/api/orders", { method: "POST" });
-
     if (response.ok) {
-      await refetchProductCount();
-
       shopify.toast.show(
         t("ProductsCard.productsCreatedToast", { count: productsCount })
       );
@@ -43,31 +26,13 @@ export function OrdersCard() {
         isError: true,
       });
     }
-
-    setPopulating(false);
   };
 
   return (
     <Card
       title={t("ProductsCard.title")}
       sectioned
-      primaryFooterAction={{
-        content: t("ProductsCard.populateProductsButton", {
-          count: productsCount,
-        }),
-        onAction: handlePopulate,
-        loading: isPopulating,
-      }}
-    >
-      <TextContainer spacing="loose">
-        <p>{t("ProductsCard.description")}</p>
-        <Text as="h4" variant="headingMd">
-          {t("ProductsCard.totalProductsHeading")}
-          <Text variant="bodyMd" as="p" fontWeight="semibold">
-            {isLoadingCount ? "-" : data?.count}
-          </Text>
-        </Text>
-      </TextContainer>
+      onAction: handlePopulate>
     </Card>
   );
 }
