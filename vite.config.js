@@ -51,7 +51,7 @@ export default defineConfig({
     preserveSymlinks: true,
     alias: {
       // 设置路径别名
-      '@components': path.resolve(__dirname, 'web/frontend/component'),
+      '@component': path.resolve(__dirname, 'web/frontend/component'),
       '@hooks': path.resolve(__dirname, 'web/frontend/hooks'),
       '@utils': path.resolve(__dirname, 'web/frontend/utils'),
     },
