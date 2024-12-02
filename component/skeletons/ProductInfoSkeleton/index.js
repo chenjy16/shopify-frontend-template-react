@@ -1,1 +1,0 @@
-export { ProductInfoSkeleton } from "./ProductInfoSkeleton";
