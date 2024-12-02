@@ -18,7 +18,7 @@ const setPageViewCountToLocalStorage = (count) => {
   localStorage.setItem("prapp.pageViewCount", count);
 };
 
-const pagename = () => {
+const review = () => {
   const navigate = useNavigate(); // 使用 react-router-dom 的 useNavigate 钩子
 
   // 使用 useState 来存储 pageViewCount
@@ -49,4 +49,4 @@ const pagename = () => {
   return null; // 不渲染任何内容，只用于路由跳转
 };
 
-export default pagename;
+export default review;
