@@ -10,14 +10,13 @@ import {
   Filters,
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
-import { ResourcePicker } from "@shopify/app-bridge-react";
-import { useHistory, useParams } from "react-router-dom"; // 使用 react-router-dom
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Rating } from "@component";
 import { useProducts } from "@hooks";
 import { extractIdFromGid } from "@utils/metafields";
 
-// Render the product item
+// 渲染产品项
 const renderItem = ({ id, name, url, media, avgRating }) => {
   let ratingToShow = 0;
   try {
@@ -44,37 +43,37 @@ const renderItem = ({ id, name, url, media, avgRating }) => {
 };
 
 /**
- * This page is accessed via '/products'
- * React Router is used to manage routing
+ * 该页面通过 '/products' 路径访问
+ * 使用 React Router 管理路由
  */
 const Products = () => {
-  const history = useHistory();
-  const { id } = useParams(); // Using useParams to get the route parameter
+  const navigate = useNavigate(); // 使用 useNavigate 进行路由跳转
+  const { id } = useParams(); // 使用 useParams 获取路由参数
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [queryValue, setQueryValue] = useState("");
   const { products, loading } = useProducts({ query: queryValue });
 
-  // Handle redirect to specific product if the id is present in the query params
+  // 如果路由参数 id 存在，重定向到指定产品
   if (id) {
-    // Ensure this check happens on the client side to avoid SSR issues
+    // 确保在客户端执行此逻辑，避免 SSR 问题
     if (typeof window === "object") {
-      history.replace(`/products/${id}`);
+      navigate(`/products/${id}`); // 使用 navigate 进行路由跳转
     }
-    return null; // Prevent rendering the page content
+    return null; // 防止渲染页面内容
   }
 
   const onSelection = ({ selection = [] }) => {
     const productDetails = selection[0];
     setIsPickerOpen(false);
     const productId = extractIdFromGid(productDetails.id);
-    history.push(`/products/${productId}/create-review`);
+    navigate(`/products/${productId}/create-review`); // 使用 navigate 替代 history.push
   };
 
   const items = useMemo(() => {
     return products.map(({ id, title, featuredImage, avgRatingMetafield }) => ({
       id,
       name: title,
-      url: `/products/${extractIdFromGid(id)}`, // Update to use relative path
+      url: `/products/${extractIdFromGid(id)}`, // 更新为使用相对路径
       media: (
         <Thumbnail
           source={featuredImage?.originalSrc || ImageMajor}
@@ -108,16 +107,6 @@ const Products = () => {
         onAction: () => setIsPickerOpen(true),
       }}
     >
-      <ResourcePicker
-        resourceType="Product"
-        showVariants={false}
-        selectMultiple={false}
-        open={isPickerOpen}
-        onSelection={onSelection}
-        onCancel={() => setIsPickerOpen(false)}
-        initialQuery={queryValue}
-        actionVerb="select"
-      />
       <Layout>
         <Layout.Section>
           <Card>
