@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import path, { dirname } from "path"; // 合并导入 path 和 dirname
+import { fileURLToPath } from "url"; // 由于 fileURLToPath 是单独的导入，可以保留
 import react from "@vitejs/plugin-react";
-import path from "path";
+
 
 if (
   process.env.npm_lifecycle_event === "build" &&
