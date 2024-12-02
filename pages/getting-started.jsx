@@ -13,7 +13,7 @@ import {
   Link,
 } from "@shopify/polaris";
 import useSWR from "swr";
-import { fetch } from "lib/app-bridge";
+import { fetch } from "@utils/app-bridge.js";
 
 const GettingStartedStep = ({ title, description, completed }) => {
   const source = completed ? CircleTickOutlineMinor : RiskMinor;
