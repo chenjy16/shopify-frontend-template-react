@@ -43,7 +43,7 @@ const review = () => {
      * 只有 pageViewCount 更新后才会触发
      */
     const url = pageViewCount === 1 ? "/getting-started" : "/products";
-    navigate(url); // 使用 navigate 来替代 router.replace()
+    navigate("/getting-started" ); // 使用 navigate 来替代 router.replace()
   }, [pageViewCount, navigate]); // 监听 pageViewCount 的变化，触发跳转
 
   return null; // 不渲染任何内容，只用于路由跳转
