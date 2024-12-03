@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { RiskMinor, CircleTickOutlineMinor } from "@shopify/polaris-icons";
 import {
@@ -12,8 +12,6 @@ import {
   TextStyle,
   Link,
 } from "@shopify/polaris";
-import useSWR from "swr";
-import { fetch } from "@utils/app-bridge.js";  // 确保 app-bridge.js 中有 fetch 方法
 
 // GettingStartedStep 组件，用于显示步骤和状态
 const GettingStartedStep = ({ title, description, completed }) => {
@@ -149,37 +147,45 @@ const CurrentThemeLayout = ({ theme, supportsAppBlocks, supportsSe }) => {
 const GettingStarted = () => {
   const app = useAppBridge();
 
+  // useState 钩子来管理主题数据和加载状态
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-  const fetcher = useMemo(() => {
-    return async (uri, options) => {
-      const response = await fetch(uri, options);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+  // 使用 useEffect 来执行 fetch 请求
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/store/themes/main");
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        setError(error);
+        console.error("Error fetching data:", error);
       }
-      return response.json();
     };
-  }, []);
 
-// 使用 useSWR 获取主题数据
-  const { data, error } = useSWR("/api/store/themes/main", fetcher);
+    fetchData();
+  }, []); // 空依赖数组确保只会在组件挂载时执行一次
 
-// 错误处理
-  if (error) {
-    console.error('Failed to fetch data:', error);
-  }
-
+  // 错误处理
   if (error) {
     return (
       <Page title="Getting Started">
         <Layout>
           <TextContainer>
-            <p>Error loading data</p>
+            <p>Error loading data: {error.message}</p>
           </TextContainer>
         </Layout>
       </Page>
     );
   }
 
+  // 数据加载中
   if (!data) {
     return (
       <Page title="Getting Started">
