@@ -151,7 +151,7 @@ const GettingStarted = () => {
     };
   }, [app]);
 
-  const { data } = useSWR("/api/store/themes/main", fetcher);
+  const { data } = {};
 
   const contentMarkup = useMemo(() => {
     if (!data) {
