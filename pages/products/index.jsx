@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Page,
   Layout,
@@ -11,10 +11,11 @@ import {
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { Rating } from "@component";
 import { useProducts } from "@hooks";
 import { extractIdFromGid } from "@utils/metafields";
+import { useAppBridge } from "@shopify/app-bridge-react";
+import { ResourcePicker } from "@shopify/app-bridge/actions";
 
 // 渲染产品项
 const renderItem = ({ id, name, url, media, avgRating }) => {
@@ -52,6 +53,7 @@ const Products = () => {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [queryValue, setQueryValue] = useState("");
   const { products, loading } = useProducts({ query: queryValue });
+  const app = useAppBridge(); // 获取 AppBridge 实例
 
   // 如果路由参数 id 存在，重定向到指定产品
   if (id) {
@@ -62,12 +64,13 @@ const Products = () => {
     return null; // 防止渲染页面内容
   }
 
-  const onSelection = ({ selection = [] }) => {
+  // 打开 ResourcePicker 后选择的产品处理逻辑
+  const onSelection = useCallback(({ selection = [] }) => {
     const productDetails = selection[0];
     setIsPickerOpen(false);
     const productId = extractIdFromGid(productDetails.id);
     navigate(`/products/${productId}/create-review`); // 使用 navigate 替代 history.push
-  };
+  }, [navigate]);
 
   const items = useMemo(() => {
     return products.map(({ id, title, featuredImage, avgRatingMetafield }) => ({
@@ -99,12 +102,29 @@ const Products = () => {
     );
   }, [queryValue]);
 
+  // 打开 Product 选择器
+  const handleOpenPicker = useCallback(() => {
+    const resourcePicker = ResourcePicker.create(app, {
+      resourceType: ResourcePicker.ResourceType.Product, // 选择产品
+      showVariants: false,
+      allowMultiple: false,
+    });
+
+    // 选择产品后处理
+    resourcePicker.subscribe(ResourcePicker.Action.SELECT, (resources) => {
+      onSelection({ selection: resources.selection });
+    });
+
+    // 打开选择器
+    resourcePicker.dispatch(ResourcePicker.Action.OPEN);
+  }, [app, onSelection]);
+
   return (
     <Page
       title="Reviewed Products"
       primaryAction={{
         content: "Create Review",
-        onAction: () => setIsPickerOpen(true),
+        onAction: handleOpenPicker, // 点击按钮时打开选择器
       }}
     >
       <Layout>
