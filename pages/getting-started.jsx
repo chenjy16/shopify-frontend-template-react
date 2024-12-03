@@ -149,15 +149,24 @@ const CurrentThemeLayout = ({ theme, supportsAppBlocks, supportsSe }) => {
 const GettingStarted = () => {
   const app = useAppBridge();
 
-  // 使用 useMemo 创建 fetcher 函数
+
   const fetcher = useMemo(() => {
     return async (uri, options) => {
-      return fetch(app)(uri, options).then((response) => response?.json());
+      const response = await fetch(uri, options);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
     };
-  }, [app]);
+  }, []);
 
-  // 使用 useSWR 获取主题数据
+// 使用 useSWR 获取主题数据
   const { data, error } = useSWR("/api/store/themes/main", fetcher);
+
+// 错误处理
+  if (error) {
+    console.error('Failed to fetch data:', error);
+  }
 
   if (error) {
     return (
