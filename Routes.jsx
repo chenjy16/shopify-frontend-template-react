@@ -26,7 +26,6 @@ export default function Routes({ pages }) {
   return (
     <ReactRouterRoutes>
       {routeComponents}
-      <Route path="/products/:id" element={<ProductReviews />} />
       <Route path="*" element={<NotFound />} />
     </ReactRouterRoutes>
   );
