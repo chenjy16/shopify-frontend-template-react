@@ -1,5 +1,5 @@
 import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
-import ProductReviews from "./pages/products/[id]/index.jsx";
+import { useMemo } from "react";
 
 /**
  * File-based routing.
@@ -17,16 +17,20 @@ import ProductReviews from "./pages/products/[id]/index.jsx";
  */
 export default function Routes({ pages }) {
   const routes = useRoutes(pages);
-  const routeComponents = routes.map(({ path, component: Component }) => (
-    <Route key={path} path={path} element={<Component />} />
-  ));
 
-  const NotFound = routes.find(({ path }) => path === "/notFound").component;
+  const routeComponents = useMemo(() =>
+      routes.map(({ path, component: Component }) => (
+        <Route key={path} path={path} element={<Component />} />
+      )),
+    [routes]
+  );
+
+  const NotFound = routes.find(({ path }) => path === "/notFound")?.component;
 
   return (
     <ReactRouterRoutes>
       {routeComponents}
-      <Route path="*" element={<NotFound />} />
+      {NotFound && <Route path="*" element={<NotFound />} />}
     </ReactRouterRoutes>
   );
 }
@@ -35,22 +39,13 @@ function useRoutes(pages) {
   const routes = Object.keys(pages)
     .map((key) => {
       let path = key
-        .replace("./pages", "")
-        .replace(/\.(t|j)sx?$/, "")
-        /**
-         * Replace /index with /
-         */
-        .replace(/\/index$/i, "/")
-        /**
-         * Only lowercase the first letter. This allows the developer to use camelCase
-         * dynamic paths while ensuring their standard routes are normalized to lowercase.
-         */
-        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase())
-        /**
-         * Convert /[handle].jsx and /[...handle].jsx to /:handle.jsx for react-router-dom
-         */
-        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`);
+        .replace("./pages", "") // 移除 /pages 前缀
+        .replace(/\.(t|j)sx?$/, "") // 移除扩展名
+        .replace(/\/index$/i, "/") // 将 /index 重写为 /
+        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase()) // 只小写第一个字母
+        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`); // 将 [param] 替换为 :param
 
+      // 如果路径以 / 结尾，移除多余的 /
       if (path.endsWith("/") && path !== "/") {
         path = path.substring(0, path.length - 1);
       }
@@ -64,7 +59,7 @@ function useRoutes(pages) {
         component: pages[key].default,
       };
     })
-    .filter((route) => route.component);
+    .filter((route) => route.component); // 过滤掉没有组件的路由
 
   return routes;
 }
