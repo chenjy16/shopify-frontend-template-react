@@ -51,8 +51,8 @@ const Products = () => {
   const navigate = useNavigate(); // 使用 useNavigate 进行路由跳转
   const { id } = useParams(); // 使用 useParams 获取路由参数
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [queryValue, setQueryValue] = useState("");
-  const { products, loading } = useProducts({ query: queryValue });
+  const [queryValue, setQueryValue] = useState(""); // 存储搜索查询值
+  const { products, loading, error } = useProducts({ query: queryValue });
   const app = useAppBridge(); // 获取 AppBridge 实例
 
   // 如果路由参数 id 存在，重定向到指定产品
@@ -76,7 +76,7 @@ const Products = () => {
     return products.map(({ id, title, featuredImage, avgRatingMetafield }) => ({
       id,
       name: title,
-      url: `/products/${extractIdFromGid(id)}`, // 更新为使用相对路径
+      url: `/api/product/${extractIdFromGid(id)}`, // 更新为使用相对路径
       media: (
         <Thumbnail
           source={featuredImage?.originalSrc || ImageMajor}
@@ -88,19 +88,32 @@ const Products = () => {
   }, [products]);
 
   const emptyStateMarkup = useMemo(() => {
-    if (queryValue) return;
+    if (queryValue && products.length === 0) {
+      return (
+        <EmptyState
+          heading="No products found"
+          image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+        >
+          <p>No products matching your search were found.</p>
+        </EmptyState>
+      );
+    }
 
-    return (
-      <EmptyState
-        heading="You don't have any products with reviews yet"
-        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-      >
-        <p>
-          Once you have products with reviews they will display on this page.
-        </p>
-      </EmptyState>
-    );
-  }, [queryValue]);
+    if (!queryValue && products.length === 0) {
+      return (
+        <EmptyState
+          heading="You don't have any products with reviews yet"
+          image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+        >
+          <p>
+            Once you have products with reviews they will display on this page.
+          </p>
+        </EmptyState>
+      );
+    }
+
+    return null;
+  }, [queryValue, products]);
 
   // 打开 Product 选择器
   const handleOpenPicker = useCallback(() => {
@@ -119,6 +132,13 @@ const Products = () => {
     resourcePicker.dispatch(ResourcePicker.Action.OPEN);
   }, [app, onSelection]);
 
+  // 显示错误信息
+  const errorMarkup = error ? (
+    <div style={{ color: "red", marginTop: "20px" }}>
+      <p>Error: {error}</p>
+    </div>
+  ) : null;
+
   return (
     <Page
       title="Reviewed Products"
@@ -127,6 +147,7 @@ const Products = () => {
         onAction: handleOpenPicker, // 点击按钮时打开选择器
       }}
     >
+      {errorMarkup}
       <Layout>
         <Layout.Section>
           <Card>
@@ -142,7 +163,7 @@ const Products = () => {
                   filters={[]}
                   queryValue={queryValue}
                   onQueryChange={setQueryValue}
-                  onQueryClear={() => setQueryValue(null)}
+                  onQueryClear={() => setQueryValue("")}
                 />
               }
             />
