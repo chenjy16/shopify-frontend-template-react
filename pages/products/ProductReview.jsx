@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-const ProductReviews = () => {
-  const { productId } = useParams(); // 获取动态路由参数
+const ProductReview = () => {
+  const { id } = useParams(); // 获取动态路由参数
 
   return (
     <div>
@@ -12,4 +12,4 @@ const ProductReviews = () => {
   );
 };
 
-export default ProductReviews;
+export default ProductReview;

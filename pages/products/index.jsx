@@ -148,7 +148,7 @@ const Products = () => {
   const handleProductClick = (productId) => {
     console.log("Navigating to product:", productId); // 确保 ID 正确
     if (productId) {
-      navigate(`/products/${productId}`);
+      navigate(`/products/productreview`);
     } else {
       console.error("Invalid product ID:", productId);
     }

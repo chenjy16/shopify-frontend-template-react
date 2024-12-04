@@ -30,7 +30,6 @@ export default function AppRoutes({ pages }) {
   return (
     <ReactRouterRoutes>
       {routeComponents}
-      <Route path="/products/:id" element={<ProductReviews />} />
       <Route path="*" element={<NotFound />} />
     </ReactRouterRoutes>
   );
