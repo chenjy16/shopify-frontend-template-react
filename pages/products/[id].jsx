@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 const ProductReviews = () => {
-  const { id } = useParams(); // 获取动态路由参数
+  const { productId } = useParams(); // 获取动态路由参数
 
   return (
     <div>

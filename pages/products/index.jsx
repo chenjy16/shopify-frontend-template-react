@@ -145,8 +145,7 @@ const Products = () => {
 
   // 点击产品项时使用 navigate 进行跳转
   const handleProductClick = (productId) => {
-    const encodedProductId = encodeURIComponent(productId);
-    navigate(`/products/${encodedProductId}`);
+    navigate(`/products/${productId}`);
   };
 
   return (
