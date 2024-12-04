@@ -87,6 +87,7 @@ const Products = () => {
     }));
   }, [products]);
 
+
   const emptyStateMarkup = useMemo(() => {
     if (queryValue && products.length === 0) {
       return (
