@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
+import ProductReviews from "./pages/products/[id]/index.jsx";
 
 /**
  * File-based routing.
@@ -14,44 +15,51 @@ import { Routes, Route } from "react-router-dom";
  *
  * @return {Routes} `<Routes/>` from React Router, with a `<Route/>` for each file in `pages`
  */
-export default function Routes({ pages }) {
-  // 获取所有路由
+export default function AppRoutes({ pages }) {
+  // 获取路由
   const routes = useRoutes(pages);
 
-  // 渲染路由组件
+  // 路由组件映射
   const routeComponents = routes.map(({ path, component: Component }) => (
-    <Route key={`${path}-${Component.name}`} path={path} element={<Component />} />
+    <Route key={path} path={path} element={<Component />} />
   ));
 
-  // 查找并设置 404 页面
+  // 找不到页面时的默认组件
   const NotFound = routes.find(({ path }) => path === "/notFound")?.component || DefaultNotFoundComponent;
 
   return (
-    <Routes>
+    <ReactRouterRoutes>
       {routeComponents}
+      <Route path="/products/:id" element={<ProductReviews />} />
       <Route path="*" element={<NotFound />} />
-    </Routes>
+    </ReactRouterRoutes>
   );
 }
 
 /**
- * 默认的 404 页面组件
+ * 动态生成路由
+ * @param {object} pages import.meta.glob() 返回的页面对象
+ * @return {Array} 返回的路由数组
  */
-function DefaultNotFoundComponent() {
-  return <div>Page Not Found</div>;
-}
-
 function useRoutes(pages) {
   const routes = Object.keys(pages)
     .map((key) => {
       let path = key
-        .replace("./pages", "") // 去掉 ./pages
-        .replace(/\.(t|j)sx?$/, "") // 去掉文件扩展名
-        .replace(/\/index$/i, "/") // 将 /index 替换为 /
-        .replace(/\b[A-Z]/g, (firstLetter) => firstLetter.toLowerCase()) // 首字母小写
-        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`); // 动态参数处理
+        .replace("./pages", "")
+        .replace(/\.(t|j)sx?$/, "")
+        /**
+         * 替换 /index 为 /
+         */
+        .replace(/\/index$/i, "/")
+        /**
+         * 仅将首字母小写，保持动态路径的 camelCase，同时确保标准路由以小写形式
+         */
+        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase())
+        /**
+         * 将 /[handle].jsx 和 /[...handle].jsx 转换为 /:handle.jsx 以兼容 react-router-dom
+         */
+        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`);
 
-      // 如果路径最后有斜杠且不是根路径，去掉斜杠
       if (path.endsWith("/") && path !== "/") {
         path = path.substring(0, path.length - 1);
       }
@@ -65,7 +73,10 @@ function useRoutes(pages) {
         component: pages[key].default,
       };
     })
-    .filter((route) => route.component); // 只保留有组件的路由
+    .filter((route) => route.component);
 
   return routes;
 }
+
+// 默认的 404 页面组件
+const DefaultNotFoundComponent = () => <div>Page Not Found</div>;
