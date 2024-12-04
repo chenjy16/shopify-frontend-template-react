@@ -178,9 +178,15 @@ const Products = () => {
                   return null;
                 }
                 return (
-                  <div onClick={() => handleProductClick(productId)}>
+                  // 修改: 将 onClick 绑定在 ResourceList.Item 上
+                  <ResourceList.Item
+                    id={productId}
+                    onClick={() => handleProductClick(productId)} // 点击事件
+                    media={item.media}
+                    accessibilityLabel={`View details for ${item.name}`}
+                  >
                     {renderItem(item)}
-                  </div>
+                  </ResourceList.Item>
                 );
               }}
               loading={loading}
