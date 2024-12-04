@@ -8,8 +8,8 @@ import { useMemo } from "react";
  *
  * Some examples:
  * * `/pages/index.jsx` matches `/`
- * * `/pages/blog/[id].jsx` matches `/blog/123`
- * * `/pages/[...catchAll].jsx` matches any URL not explicitly matched
+ * * `/pages/products/index.jsx` matches `/products`
+ * * `/pages/products/[id]/index.jsx` matches `/products/:id`
  *
  * @param {object} pages value of import.meta.glob(). See https://vitejs.dev/guide/features.html#glob-import
  *
@@ -43,7 +43,7 @@ function useRoutes(pages) {
         .replace(/\.(t|j)sx?$/, "") // 移除扩展名
         .replace(/\/index$/i, "/") // 将 /index 重写为 /
         .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase()) // 只小写第一个字母
-        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`); // 将 [param] 替换为 :param
+        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`); // 将 [id] 替换为 :id
 
       // 如果路径以 / 结尾，移除多余的 /
       if (path.endsWith("/") && path !== "/") {
