@@ -1,4 +1,5 @@
 import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
+import ProductReviews from "./pages/products/[id]/index.js";
 
 /**
  * File-based routing.
@@ -25,7 +26,7 @@ export default function Routes({ pages }) {
   return (
     <ReactRouterRoutes>
       {routeComponents}
-      <Route path="/products/:id" element={<ProductDetail />} />
+      <Route path="/products/:id" element={<ProductReviews />} />
       <Route path="*" element={<NotFound />} />
     </ReactRouterRoutes>
   );
