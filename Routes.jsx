@@ -1,5 +1,5 @@
 import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
-import ProductReviews from "./pages/products/[id]/index.js";
+import ProductReviews from "./pages/products/[id]/index.jsx";
 
 /**
  * File-based routing.
