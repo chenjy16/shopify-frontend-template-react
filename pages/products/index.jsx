@@ -77,7 +77,7 @@ const Products = () => {
       return {
         id,
         name: title,
-        url: `/products/${productId}`, // 修正为正确的 URL 拼接
+        url: `/products/${productId}`,
         media: (
           <Thumbnail
             source={featuredImage?.originalSrc || ImageMajor}
@@ -88,7 +88,6 @@ const Products = () => {
       };
     }).filter(Boolean); // 移除无效的项
   }, [products]);
-
 
   const emptyStateMarkup = useMemo(() => {
     if (queryValue && products.length === 0) {
@@ -128,12 +127,14 @@ const Products = () => {
 
     // 选择产品后处理
     resourcePicker.subscribe(ResourcePicker.Action.SELECT, (resources) => {
-      onSelection({ selection: resources.selection });
+      const selectedProducts = resources.selection;
+      console.log("Selected Products:", selectedProducts);
+      // You can handle the selected products here, e.g., update state, navigate, etc.
     });
 
     // 打开选择器
     resourcePicker.dispatch(ResourcePicker.Action.OPEN);
-  }, [app, onSelection]);
+  }, [app]);
 
   // 显示错误信息
   const errorMarkup = error ? (
