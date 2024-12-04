@@ -76,7 +76,7 @@ const Products = () => {
     return products.map(({ id, title, featuredImage, avgRatingMetafield }) => ({
       id,
       name: title,
-      url: `/api/product/${extractIdFromGid(id)}`, // 更新为使用相对路径
+      url: `products/${extractIdFromGid(id)}`,
       media: (
         <Thumbnail
           source={featuredImage?.originalSrc || ImageMajor}
