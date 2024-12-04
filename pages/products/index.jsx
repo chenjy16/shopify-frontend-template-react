@@ -10,7 +10,7 @@ import {
   Filters,
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";  // 引入 useNavigate
 import { Rating } from "@component";
 import { useProducts } from "@hooks";  // 假设这个hook支持基于查询值的过滤
 import { extractIdFromGid } from "@utils/metafields";
@@ -143,6 +143,11 @@ const Products = () => {
     }).filter(Boolean); // 移除无效项
   }, [products]);
 
+  // 点击产品项时使用 navigate 进行跳转
+  const handleProductClick = (productId) => {
+    navigate(`/products/${productId}`);
+  };
+
   return (
     <Page
       title="Reviewed Products"
@@ -167,9 +172,9 @@ const Products = () => {
                   return null;
                 }
                 return (
-                  <Link to={`/products/${productId}`}>
+                  <div onClick={() => handleProductClick(productId)}>
                     {renderItem(item)}
-                  </Link>
+                  </div>
                 );
               }}
               loading={loading}
