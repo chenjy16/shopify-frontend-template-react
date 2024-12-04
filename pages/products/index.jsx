@@ -10,30 +10,25 @@ import {
   Filters,
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Rating } from "@component";
-import { useProducts } from "@hooks";
+import { useProducts } from "@hooks";  // Assuming this hook fetches products and supports filtering
 import { extractIdFromGid } from "@utils/metafields";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
 
 // 渲染产品项
-const renderItem = ({ id, name, url, media, avgRating }) => {
+const renderItem = ({ id, name, media, avgRating }) => {
   let ratingToShow = 0;
   try {
     ratingToShow = JSON.parse(avgRating?.value).value;
   } catch (e) {
-    console.log(
-      "Publish a review of",
-      name,
-      "to have the average review show."
-    );
+    console.log("Publish a review of", name, "to have the average review show.");
   }
 
   return (
     <ResourceList.Item
       id={id}
-      url={url}
       media={media}
       accessibilityLabel={`View details for ${name}`}
     >
@@ -52,7 +47,7 @@ const Products = () => {
   const { id } = useParams(); // 使用 useParams 获取路由参数
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [queryValue, setQueryValue] = useState(""); // 存储搜索查询值
-  const { products, loading, error } = useProducts({ query: queryValue });
+  const { products, loading, error } = useProducts({ query: queryValue }); // 假设这个hook支持基于查询值的过滤
   const app = useAppBridge(); // 获取 AppBridge 实例
 
   // 如果路由参数 id 存在，重定向到指定产品
@@ -64,31 +59,26 @@ const Products = () => {
     return null; // 防止渲染页面内容
   }
 
-  // 打开 ResourcePicker 后选择的产品处理逻辑
-  const items = useMemo(() => {
-    return products.map(({ id, title, featuredImage, avgRatingMetafield }) => {
-      const productId = extractIdFromGid(id);
+  // 打开 Product 选择器
+  const handleOpenPicker = useCallback(() => {
+    const resourcePicker = ResourcePicker.create(app, {
+      resourceType: ResourcePicker.ResourceType.Product, // 选择产品
+      showVariants: false,
+      allowMultiple: false,
+    });
 
-      if (!productId) {
-        console.error(`Invalid product ID for ${title}`);
-        return null;
-      }
+    // 选择产品后处理
+    resourcePicker.subscribe(ResourcePicker.Action.SELECT, (resources) => {
+      const selectedProducts = resources.selection;
+      console.log("Selected Products:", selectedProducts);
+      // 处理选中的产品，例如更新状态，跳转等
+    });
 
-      return {
-        id,
-        name: title,
-        url: `/products/${productId}`,
-        media: (
-          <Thumbnail
-            source={featuredImage?.originalSrc || ImageMajor}
-            alt={title}
-          />
-        ),
-        avgRating: avgRatingMetafield,
-      };
-    }).filter(Boolean); // 移除无效的项
-  }, [products]);
+    // 打开选择器
+    resourcePicker.dispatch(ResourcePicker.Action.OPEN);
+  }, [app]);
 
+  // 空状态渲染逻辑
   const emptyStateMarkup = useMemo(() => {
     if (queryValue && products.length === 0) {
       return (
@@ -108,7 +98,7 @@ const Products = () => {
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
         >
           <p>
-            Once you have products with reviews they will display on this page.
+            Once you have products with reviews, they will display on this page.
           </p>
         </EmptyState>
       );
@@ -117,31 +107,36 @@ const Products = () => {
     return null;
   }, [queryValue, products]);
 
-  // 打开 Product 选择器
-  const handleOpenPicker = useCallback(() => {
-    const resourcePicker = ResourcePicker.create(app, {
-      resourceType: ResourcePicker.ResourceType.Product, // 选择产品
-      showVariants: false,
-      allowMultiple: false,
-    });
-
-    // 选择产品后处理
-    resourcePicker.subscribe(ResourcePicker.Action.SELECT, (resources) => {
-      const selectedProducts = resources.selection;
-      console.log("Selected Products:", selectedProducts);
-      // You can handle the selected products here, e.g., update state, navigate, etc.
-    });
-
-    // 打开选择器
-    resourcePicker.dispatch(ResourcePicker.Action.OPEN);
-  }, [app]);
-
-  // 显示错误信息
+  // 错误渲染逻辑
   const errorMarkup = error ? (
     <div style={{ color: "red", marginTop: "20px" }}>
       <p>Error: {error}</p>
     </div>
   ) : null;
+
+  // 渲染产品项
+  const items = useMemo(() => {
+    return products.map(({ id, title, featuredImage, avgRatingMetafield }) => {
+      const productId = extractIdFromGid(id);
+
+      if (!productId) {
+        console.error(`Invalid product ID for ${title}`);
+        return null;
+      }
+
+      return {
+        id,
+        name: title,
+        media: (
+          <Thumbnail
+            source={featuredImage?.originalSrc || ImageMajor}
+            alt={title}
+          />
+        ),
+        avgRating: avgRatingMetafield,
+      };
+    }).filter(Boolean); // 移除无效项
+  }, [products]);
 
   return (
     <Page
@@ -160,7 +155,11 @@ const Products = () => {
               showHeader
               emptyState={emptyStateMarkup}
               items={items}
-              renderItem={renderItem}
+              renderItem={(item) => (
+                <Link to={`/products/${extractIdFromGid(item.id)}`}>
+                  {renderItem(item)}
+                </Link>
+              )}
               loading={loading}
               filterControl={
                 <Filters
