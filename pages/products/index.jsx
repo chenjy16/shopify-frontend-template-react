@@ -12,7 +12,7 @@ import {
 import { ImageMajor } from "@shopify/polaris-icons";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Rating } from "@component";
-import { useProducts } from "@hooks";  // Assuming this hook fetches products and supports filtering
+import { useProducts } from "@hooks";  // 假设这个hook支持基于查询值的过滤
 import { extractIdFromGid } from "@utils/metafields";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
@@ -54,7 +54,12 @@ const Products = () => {
   if (id) {
     // 确保在客户端执行此逻辑，避免 SSR 问题
     if (typeof window === "object") {
-      navigate(`/products/${id}`); // 使用 navigate 进行路由跳转
+      const productId = extractIdFromGid(id);
+      if (productId) {
+        navigate(`/products/${productId}`); // 使用 navigate 进行路由跳转
+      } else {
+        console.error(`Invalid product ID: ${id}`);
+      }
     }
     return null; // 防止渲染页面内容
   }
@@ -155,11 +160,18 @@ const Products = () => {
               showHeader
               emptyState={emptyStateMarkup}
               items={items}
-              renderItem={(item) => (
-                <Link to={`/products/${extractIdFromGid(item.id)}`}>
-                  {renderItem(item)}
-                </Link>
-              )}
+              renderItem={(item) => {
+                const productId = extractIdFromGid(item.id);
+                if (!productId) {
+                  console.error(`Invalid product ID for ${item.name}`);
+                  return null;
+                }
+                return (
+                  <Link to={`/products/${productId}`}>
+                    {renderItem(item)}
+                  </Link>
+                );
+              }}
               loading={loading}
               filterControl={
                 <Filters
