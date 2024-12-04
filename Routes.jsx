@@ -1,5 +1,4 @@
-import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
-import ProductReviews from "./pages/products/[id]/index.jsx";
+import { Routes, Route } from "react-router-dom";
 
 /**
  * File-based routing.
@@ -16,41 +15,43 @@ import ProductReviews from "./pages/products/[id]/index.jsx";
  * @return {Routes} `<Routes/>` from React Router, with a `<Route/>` for each file in `pages`
  */
 export default function Routes({ pages }) {
+  // 获取所有路由
   const routes = useRoutes(pages);
+
+  // 渲染路由组件
   const routeComponents = routes.map(({ path, component: Component }) => (
-    <Route key={path} path={path} element={<Component />} />
+    <Route key={`${path}-${Component.name}`} path={path} element={<Component />} />
   ));
 
-  const NotFound = routes.find(({ path }) => path === "/notFound").component;
+  // 查找并设置 404 页面
+  const NotFound = routes.find(({ path }) => path === "/notFound")?.component || DefaultNotFoundComponent;
 
   return (
-    <ReactRouterRoutes>
+    <Routes>
       {routeComponents}
       <Route path="*" element={<NotFound />} />
-    </ReactRouterRoutes>
+    </Routes>
   );
+}
+
+/**
+ * 默认的 404 页面组件
+ */
+function DefaultNotFoundComponent() {
+  return <div>Page Not Found</div>;
 }
 
 function useRoutes(pages) {
   const routes = Object.keys(pages)
     .map((key) => {
       let path = key
-        .replace("./pages", "")
-        .replace(/\.(t|j)sx?$/, "")
-        /**
-         * Replace /index with /
-         */
-        .replace(/\/index$/i, "/")
-        /**
-         * Only lowercase the first letter. This allows the developer to use camelCase
-         * dynamic paths while ensuring their standard routes are normalized to lowercase.
-         */
-        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase())
-        /**
-         * Convert /[handle].jsx and /[...handle].jsx to /:handle.jsx for react-router-dom
-         */
-        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`);
+        .replace("./pages", "") // 去掉 ./pages
+        .replace(/\.(t|j)sx?$/, "") // 去掉文件扩展名
+        .replace(/\/index$/i, "/") // 将 /index 替换为 /
+        .replace(/\b[A-Z]/g, (firstLetter) => firstLetter.toLowerCase()) // 首字母小写
+        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`); // 动态参数处理
 
+      // 如果路径最后有斜杠且不是根路径，去掉斜杠
       if (path.endsWith("/") && path !== "/") {
         path = path.substring(0, path.length - 1);
       }
@@ -64,7 +65,7 @@ function useRoutes(pages) {
         component: pages[key].default,
       };
     })
-    .filter((route) => route.component);
+    .filter((route) => route.component); // 只保留有组件的路由
 
   return routes;
 }
