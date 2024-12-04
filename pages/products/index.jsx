@@ -65,26 +65,28 @@ const Products = () => {
   }
 
   // 打开 ResourcePicker 后选择的产品处理逻辑
-  const onSelection = useCallback(({ selection = [] }) => {
-    const productDetails = selection[0];
-    setIsPickerOpen(false);
-    const productId = extractIdFromGid(productDetails.id);
-    navigate(`/products/${productId}/create-review`); // 使用 navigate 替代 history.push
-  }, [navigate]);
-
   const items = useMemo(() => {
-    return products.map(({ id, title, featuredImage, avgRatingMetafield }) => ({
-      id,
-      name: title,
-      url: `products/${extractIdFromGid(id)}`,
-      media: (
-        <Thumbnail
-          source={featuredImage?.originalSrc || ImageMajor}
-          alt={title}
-        />
-      ),
-      avgRating: avgRatingMetafield,
-    }));
+    return products.map(({ id, title, featuredImage, avgRatingMetafield }) => {
+      const productId = extractIdFromGid(id);
+
+      if (!productId) {
+        console.error(`Invalid product ID for ${title}`);
+        return null;
+      }
+
+      return {
+        id,
+        name: title,
+        url: `/products/${productId}`, // 修正为正确的 URL 拼接
+        media: (
+          <Thumbnail
+            source={featuredImage?.originalSrc || ImageMajor}
+            alt={title}
+          />
+        ),
+        avgRating: avgRatingMetafield,
+      };
+    }).filter(Boolean); // 移除无效的项
   }, [products]);
 
 

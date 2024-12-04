@@ -17,34 +17,14 @@ const ProductReviews = () => {
   const navigate = useNavigate();
   const { id: productId, state = "published" } = useParams();
 
-  const shopifyProductGid = generateShopifyProductGid(productId);
+  // 确保产品 ID 有效
+  if (!productId) {
+    console.error("Invalid product ID");
+    navigate("/products");
+    return null;
+  }
 
-  const handleBulkAction = useCallback(
-    async (ids, bulkAction) => {
-      console.log("Bulk action triggered with IDs:", ids);
-      // Implement bulk action logic here if needed
-    },
-    []
-  );
-
-  const bulkActions = useMemo(() => {
-    const unpublishAction = {
-      content: "Unpublish Selected",
-      onAction: (ids) => handleBulkAction(ids, () => console.log("Unpublish")),
-    };
-    const publishAction = {
-      content: "Publish Selected",
-      onAction: (ids) => handleBulkAction(ids, () => console.log("Publish")),
-    };
-
-    return [
-      state === "published" ? unpublishAction : publishAction,
-      {
-        content: "Delete Selected",
-        onAction: (ids) => handleBulkAction(ids, () => console.log("Delete")),
-      },
-    ];
-  }, [state, handleBulkAction]);
+  const shopifyProductGid = generateShopifyProductGid(productId); // 确保生成有效的 GID
 
   const handleTabChange = useCallback(
     (newState) => {
