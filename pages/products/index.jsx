@@ -10,9 +10,9 @@ import {
   Filters,
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
-import { useNavigate, useParams } from "react-router-dom";  // 引入 useNavigate
+import { useNavigate, useParams } from "react-router-dom"; // 引入 useNavigate
 import { Rating } from "@component";
-import { useProducts } from "@hooks";  // 假设这个hook支持基于查询值的过滤
+import { useProducts } from "@hooks";
 import { extractIdFromGid } from "@utils/metafields";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
@@ -56,6 +56,7 @@ const Products = () => {
     if (typeof window === "object") {
       const productId = extractIdFromGid(id);
       if (productId) {
+        console.log("Navigating to product:", productId);
         navigate(`/products/${productId}`); // 使用 navigate 进行路由跳转
       } else {
         console.error(`Invalid product ID: ${id}`);
@@ -145,7 +146,12 @@ const Products = () => {
 
   // 点击产品项时使用 navigate 进行跳转
   const handleProductClick = (productId) => {
-    navigate(`/products/${productId}`);
+    console.log("Navigating to product:", productId); // 确保 ID 正确
+    if (productId) {
+      navigate(`/products/${productId}`);
+    } else {
+      console.error("Invalid product ID:", productId);
+    }
   };
 
   return (
