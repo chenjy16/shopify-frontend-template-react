@@ -5,9 +5,12 @@ import {
   Link,
   Text,
   VerticalStack,
+  Box,
+  Icon,
 } from "@shopify/polaris";
 import { TitleBar } from '@shopify/app-bridge-react';
 import { useTranslation } from 'react-i18next';
+import { LinkMinor, ExternalMinor } from '@shopify/polaris-icons';
 import {ProductsCard, OrdersCard} from "../components";
 
 export default function HomePage() {
@@ -19,34 +22,60 @@ export default function HomePage() {
         <VerticalStack gap="5">
           {/* Dropshipping Section */}
           <Card>
-            <div style={styles.section}>
-              <div style={styles.categoryHeader}>
-                <Text variant="headingMd" as="h2">Dropshipping</Text>
+            <Box padding="4">
+              <div style={styles.section}>
+                <div style={styles.categoryHeader}>
+                  <Text variant="headingLg" as="h2">
+                    <Icon source={LinkMinor} />
+                    <span style={styles.headerText}>Dropshipping</span>
+                  </Text>
+                </div>
+                <div style={styles.linkGrid}>
+                  {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText) => (
+                    <Link 
+                      key={linkText} 
+                      url={`https://${linkText}.com`} 
+                      external 
+                      removeUnderline
+                    >
+                      <div style={styles.linkContainer}>
+                        <span>{linkText}</span>
+                        <Icon source={ExternalMinor} color="base" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <div style={styles.linkGrid}>
-                {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText) => (
-                  <Link key={linkText} url={`https://${linkText}.com`} external style={styles.link}>
-                    {linkText}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            </Box>
           </Card>
 
           {/* Supplier Section */}
           <Card>
-            <div style={styles.section}>
-              <div style={styles.categoryHeader}>
-                <Text variant="headingMd" as="h2">Supplier</Text>
+            <Box padding="4">
+              <div style={styles.section}>
+                <div style={styles.categoryHeader}>
+                  <Text variant="headingLg" as="h2">
+                    <Icon source={LinkMinor} />
+                    <span style={styles.headerText}>Supplier</span>
+                  </Text>
+                </div>
+                <div style={styles.linkGrid}>
+                  {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText) => (
+                    <Link 
+                      key={linkText} 
+                      url={`https://${linkText}.com`} 
+                      external 
+                      removeUnderline
+                    >
+                      <div style={styles.linkContainer}>
+                        <span>{linkText}</span>
+                        <Icon source={ExternalMinor} color="base" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <div style={styles.linkGrid}>
-                {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText) => (
-                  <Link key={linkText} url={`https://${linkText}.com`} external style={styles.link}>
-                    {linkText}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            </Box>
           </Card>
 
           {/* Products & Orders Cards */}
@@ -68,8 +97,6 @@ export default function HomePage() {
   );
 }
 
-
-
 const styles = {
   container: {
     maxWidth: '1200px',
@@ -77,31 +104,38 @@ const styles = {
     padding: '20px',
   },
   section: {
-    padding: '20px',
+    padding: '0',
   },
   categoryHeader: {
-    marginBottom: '20px',
-    borderBottom: '1px solid #e1e3e5',
-    paddingBottom: '12px',
+    marginBottom: '24px',
+    borderBottom: '1px solid var(--p-border-subdued)',
+    paddingBottom: '16px',
+  },
+  headerText: {
+    marginLeft: '8px',
+    verticalAlign: 'middle',
   },
   linkGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
     gap: '16px',
-    alignItems: 'start',
+    alignItems: 'stretch',
   },
-  link: {
-    display: 'block',
-    padding: '12px 16px',
-    backgroundColor: '#f6f6f7',
-    borderRadius: '4px',
-    color: '#2c6ecb',
-    textDecoration: 'none',
-    fontSize: '14px',
+  linkContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px',
+    backgroundColor: 'var(--p-surface-selected)',
+    borderRadius: '8px',
+    border: '1px solid var(--p-border-subdued)',
     transition: 'all 0.2s ease',
+    color: 'var(--p-text)',
+    minHeight: '52px',
     '&:hover': {
-      backgroundColor: '#e6e6e7',
-      color: '#1a1a1a',
+      backgroundColor: 'var(--p-surface-hovered)',
+      borderColor: 'var(--p-border-hovered)',
+      boxShadow: 'var(--p-shadow-button)',
     },
   },
 };
