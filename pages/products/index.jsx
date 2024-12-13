@@ -8,6 +8,9 @@ import {
   Thumbnail,
   EmptyState,
   Filters,
+  Box,
+  Text,
+  VerticalStack,
 } from "@shopify/polaris";
 import { ImageMajor } from "@shopify/polaris-icons";
 import { useNavigate, useParams } from "react-router-dom"; // 引入 useNavigate
@@ -27,14 +30,12 @@ const renderItem = ({ id, name, media, avgRating }) => {
   }
 
   return (
-    <ResourceList.Item
-      id={id}
-      media={media}
-      accessibilityLabel={`View details for ${name}`}
-    >
-      <Heading element="h2">{name}</Heading>
-      <Rating value={ratingToShow} />
-    </ResourceList.Item>
+    <Box padding="3">
+      <VerticalStack gap="2">
+        <Text variant="headingMd" as="h2">{name}</Text>
+        <Rating value={ratingToShow} />
+      </VerticalStack>
+    </Box>
   );
 };
 
@@ -159,49 +160,54 @@ const Products = () => {
       title="Reviewed Products"
       primaryAction={{
         content: "Create Review",
-        onAction: handleOpenPicker, // 点击按钮时打开选择器
+        onAction: handleOpenPicker,
+        tone: "success",
       }}
     >
       {errorMarkup}
-      <Layout>
-        <Layout.Section>
-          <Card>
-            <ResourceList
-              resourceName={{ singular: "product", plural: "products" }}
-              showHeader
-              emptyState={emptyStateMarkup}
-              items={items}
-              renderItem={(item) => {
-                const productId = extractIdFromGid(item.id);
-                if (!productId) {
-                  console.error(`Invalid product ID for ${item.name}`);
-                  return null;
+      <Box paddingBlockStart="4">
+        <Layout>
+          <Layout.Section>
+            <Card>
+              <ResourceList
+                resourceName={{ singular: "product", plural: "products" }}
+                showHeader
+                emptyState={emptyStateMarkup}
+                items={items}
+                renderItem={(item) => {
+                  const productId = extractIdFromGid(item.id);
+                  if (!productId) {
+                    console.error(`Invalid product ID for ${item.name}`);
+                    return null;
+                  }
+                  return (
+                    <ResourceList.Item
+                      id={productId}
+                      onClick={() => handleProductClick(productId)}
+                      media={item.media}
+                      accessibilityLabel={`View details for ${item.name}`}
+                      verticalAlignment="center"
+                    >
+                      {renderItem(item)}
+                    </ResourceList.Item>
+                  );
+                }}
+                loading={loading}
+                filterControl={
+                  <Box paddingInlineStart="4" paddingInlineEnd="4" paddingBlockStart="3">
+                    <Filters
+                      filters={[]}
+                      queryValue={queryValue}
+                      onQueryChange={setQueryValue}
+                      onQueryClear={() => setQueryValue("")}
+                    />
+                  </Box>
                 }
-                return (
-                  // 修改: 将 onClick 绑定在 ResourceList.Item 上
-                  <ResourceList.Item
-                    id={productId}
-                    onClick={() => handleProductClick(productId)} // 点击事件
-                    media={item.media}
-                    accessibilityLabel={`View details for ${item.name}`}
-                  >
-                    {renderItem(item)}
-                  </ResourceList.Item>
-                );
-              }}
-              loading={loading}
-              filterControl={
-                <Filters
-                  filters={[]}
-                  queryValue={queryValue}
-                  onQueryChange={setQueryValue}
-                  onQueryClear={() => setQueryValue("")}
-                />
-              }
-            />
-          </Card>
-        </Layout.Section>
-      </Layout>
+              />
+            </Card>
+          </Layout.Section>
+        </Layout>
+      </Box>
     </Page>
   );
 };

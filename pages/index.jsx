@@ -5,6 +5,7 @@ import {
   Link,
   Text,
   VerticalStack,
+  Box,
 } from "@shopify/polaris";
 import { TitleBar } from '@shopify/app-bridge-react';
 import { useTranslation } from 'react-i18next';
@@ -15,101 +16,79 @@ export default function HomePage() {
   return (
     <Page fullWidth>
       <TitleBar title={t("HomePage.title")}/>
-      <div style={styles.container}>
+      <Box paddingInlineStart="4" paddingInlineEnd="4">
         <VerticalStack gap="5">
           {/* Dropshipping Section */}
           <Card>
-            <div style={styles.section}>
-              <div style={styles.categoryHeader}>
-                <Text variant="headingMd" as="h2" color="success">Dropshipping</Text>
-              </div>
-              <div style={styles.linkGrid}>
-                {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText) => (
-                  <Link key={linkText} url={`https://${linkText}.com`} external style={styles.link}>
-                    {linkText}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <Box padding="4">
+              <VerticalStack gap="4">
+                <Box borderBlockEndWidth="025" borderColor="border" paddingBlockEnd="3">
+                  <Text variant="headingMd" as="h2">Dropshipping</Text>
+                </Box>
+                <div style={styles.linkGrid}>
+                  {["cjdropshipping", "aliexpress", "gigacloudtech", "dsers", "zendrop", "spocket"].map((linkText) => (
+                    <Link key={linkText} url={`https://${linkText}.com`} external monochrome removeUnderline>
+                      <Box padding="3" background="bg-surface-secondary" borderRadius="2" hover={styles.linkHover}>
+                        {linkText}
+                      </Box>
+                    </Link>
+                  ))}
+                </div>
+              </VerticalStack>
+            </Box>
           </Card>
 
           {/* Supplier Section */}
           <Card>
-            <div style={styles.section}>
-              <div style={styles.categoryHeader}>
-                <Text variant="headingMd" as="h2" color="success">Supplier</Text>
-              </div>
-              <div style={styles.linkGrid}>
-                {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText) => (
-                  <Link key={linkText} url={`https://${linkText}.com`} external style={styles.link}>
-                    {linkText}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <Box padding="4">
+              <VerticalStack gap="4">
+                <Box borderBlockEndWidth="025" borderColor="border" paddingBlockEnd="3">
+                  <Text variant="headingMd" as="h2">Supplier</Text>
+                </Box>
+                <div style={styles.linkGrid}>
+                  {["globalsources", "thomasnet", "indiamart", "europages", "ec21", "tradekey"].map((linkText) => (
+                    <Link key={linkText} url={`https://${linkText}.com`} external monochrome removeUnderline>
+                      <Box padding="3" background="bg-surface-secondary" borderRadius="2" hover={styles.linkHover}>
+                        {linkText}
+                      </Box>
+                    </Link>
+                  ))}
+                </div>
+              </VerticalStack>
+            </Box>
           </Card>
 
           {/* Products & Orders Cards */}
           <Layout>
             <Layout.Section oneHalf>
               <Card>
-                <ProductsCard />
+                <Box padding="4">
+                  <ProductsCard />
+                </Box>
               </Card>
             </Layout.Section>
             <Layout.Section oneHalf>
               <Card>
-                <OrdersCard />
+                <Box padding="4">
+                  <OrdersCard />
+                </Box>
               </Card>
             </Layout.Section>
           </Layout>
         </VerticalStack>
-      </div>
+      </Box>
     </Page>
   );
 }
 
 const styles = {
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '20px',
-  },
-  section: {
-    padding: '24px',
-    backgroundColor: '#ffffff',
-  },
-  categoryHeader: {
-    marginBottom: '24px',
-    borderBottom: '2px solid #008060',
-    paddingBottom: '12px',
-    display: 'flex',
-    alignItems: 'center',
-  },
   linkGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-    gap: '16px',
-    alignItems: 'stretch',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+    gap: '12px',
   },
-  link: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '14px 18px',
-    backgroundColor: '#f4f6f8',
-    borderRadius: '8px',
-    color: '#2c6ecb',
-    textDecoration: 'none',
-    fontSize: '15px',
-    fontWeight: '500',
-    transition: 'all 0.2s ease',
-    border: '1px solid #e1e3e5',
-    height: '100%',
-    '&:hover': {
-      backgroundColor: '#f9fafb',
-      color: '#008060',
-      borderColor: '#008060',
-      transform: 'translateY(-1px)',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-    },
-  },
+  linkHover: {
+    backgroundColor: 'var(--p-color-bg-success-subdued)',
+    color: 'var(--p-color-text-success)',
+  }
 };
