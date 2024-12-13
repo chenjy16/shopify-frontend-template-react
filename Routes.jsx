@@ -1,5 +1,4 @@
 import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
-import ProductReviews from "./pages/products/[id]/index.jsx";
 
 /**
  * File-based routing.
@@ -53,11 +52,7 @@ function useRoutes(pages) {
         /**
          * 仅将首字母小写，保持动态路径的 camelCase，同时确保标准路由以小写形式
          */
-        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase())
-        /**
-         * 将 /[handle].jsx 和 /[...handle].jsx 转换为 /:handle.jsx 以兼容 react-router-dom
-         */
-        .replace(/\[(?:[.]{3})?(\w+?)\]/g, (_match, param) => `:${param}`);
+        .replace(/\b[A-Z]/, (firstLetter) => firstLetter.toLowerCase());
 
       if (path.endsWith("/") && path !== "/") {
         path = path.substring(0, path.length - 1);
