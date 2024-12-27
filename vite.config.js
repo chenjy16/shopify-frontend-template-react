@@ -51,11 +51,10 @@ export default defineConfig({
   resolve: {
     preserveSymlinks: true,
     alias: {
-      // 设置路径别名
-      '@component': path.resolve(__dirname, 'component'),
-      '@hooks': path.resolve(__dirname, 'hooks'),
-      '@utils': path.resolve(__dirname, 'utils'),
-      '@constants': path.resolve(__dirname, 'constants'),
+      '@utils': path.resolve(__dirname, './utils'),
+      '@components': path.resolve(__dirname, './components'),
+      '@hooks': path.resolve(__dirname, './hooks'),
+      '@constants': path.resolve(__dirname, './constants'),
     },
   },
   server: {

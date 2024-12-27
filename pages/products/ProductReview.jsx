@@ -10,26 +10,29 @@ import {
   Banner,
 } from "@shopify/polaris";
 import { find } from "lodash";
-import { useRouter } from "next/router";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { generateShopifyProductGid } from "../../../utilities/metafields";
-import { ReviewList, Rating, ProductInfoSkeleton } from "components";
+import { generateShopifyProductGid } from "@utils/metafields";
+import { ReviewList, Rating, ProductInfoSkeleton } from "@components";
 import {
   useDeleteReviews,
   useProductReviews,
   usePublishReviews,
   useUnpublishReviews,
   useProduct,
-} from "hooks";
-import { ROUTES } from "constants";
+} from "@hooks";
+import { ROUTES } from "@constants";
 
 /**
  * 产品评论页面组件
  */
 const ProductReviews = () => {
   const { t } = useTranslation();
-  const { push, query } = useRouter();
-  const { id: productId, state = "published" } = query;
+  const navigate = useNavigate();
+  const { id: productId } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const state = searchParams.get("state") || "published";
   
   // 获取产品数据
   const shopifyProductGid = generateShopifyProductGid(productId);
@@ -89,12 +92,9 @@ const ProductReviews = () => {
   // 标签切换处理
   const handleTabChange = useCallback(
     (newState) => {
-      push({
-        pathname: `/products/${productId}`,
-        query: { state: newState },
-      });
+      navigate(`/products/${productId}?state=${newState}`);
     },
-    [push, productId]
+    [navigate, productId]
   );
 
   // 产品信息区域渲染
