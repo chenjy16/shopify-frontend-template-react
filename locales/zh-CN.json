@@ -1,0 +1,13 @@
+{
+  "ProductReviews": {
+    "title": "产品评论",
+    "backLinkLabel": "返回产品列表",
+    "unpublishSelected": "取消发布所选",
+    "publishSelected": "发布所选", 
+    "deleteSelected": "删除所选",
+    "createReview": "创建评论",
+    "overallRating": "总体评分",
+    "noRatingMessage": "暂无评分",
+    "errorLoadingReviews": "加载评论时出错"
+  }
+} 

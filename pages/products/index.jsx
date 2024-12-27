@@ -147,9 +147,8 @@ const Products = () => {
 
   // 点击产品项时使用 navigate 进行跳转
   const handleProductClick = (productId) => {
-    console.log("Navigating to product:", productId); // 确保 ID 正确
     if (productId) {
-      navigate(`/products/productreview`);
+      navigate(`/products/productreview/${productId}`);
     } else {
       console.error("Invalid product ID:", productId);
     }
