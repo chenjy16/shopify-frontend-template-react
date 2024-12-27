@@ -55,6 +55,7 @@ export default defineConfig({
       '@component': path.resolve(__dirname, 'component'),
       '@hooks': path.resolve(__dirname, 'hooks'),
       '@utils': path.resolve(__dirname, 'utils'),
+      '@constants': path.resolve(__dirname, 'constants'),
     },
   },
   server: {

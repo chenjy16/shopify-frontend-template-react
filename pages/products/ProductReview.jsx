@@ -21,7 +21,7 @@ import {
   useUnpublishReviews,
   useProduct,
 } from "hooks";
-import { ROUTES } from "../../../constants";
+import { ROUTES } from "constants";
 
 /**
  * 产品评论页面组件
