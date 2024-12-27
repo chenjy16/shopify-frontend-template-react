@@ -52,6 +52,7 @@ export default defineConfig({
     preserveSymlinks: true,
     alias: {
       '@utils': path.resolve(__dirname, './utils'),
+      '@component': path.resolve(__dirname, 'component'), 
       '@components': path.resolve(__dirname, './components'),
       '@hooks': path.resolve(__dirname, './hooks'),
       '@constants': path.resolve(__dirname, './constants'),
