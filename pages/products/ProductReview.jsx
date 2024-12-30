@@ -19,7 +19,7 @@ import {
   useProductReviews,
   usePublishReviews,
   useUnpublishReviews,
-  useProduct,
+  useProducts,
 } from "@hooks";
 import { ROUTES } from "@constants";
 
@@ -36,7 +36,7 @@ const ProductReviews = () => {
   
   // 获取产品数据
   const shopifyProductGid = generateShopifyProductGid(productId);
-  const { product, loading: productLoading, error } = useProduct(shopifyProductGid);
+  const { product, loading: productLoading, error } = useProducts(shopifyProductGid);
 
   // 获取评论数据
   const {
